@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-
+/*
+ * This class handles in and out data from/to the database
+ */
 
 
 
@@ -34,6 +36,8 @@ public class DB
     
 	    return conn;
 	}
+	
+	//select sql method to accepts a SQL String and return a resultset
 	public ResultSet selectSQL(String sql)
 	{
 		Connection conn = null;
@@ -51,6 +55,7 @@ public class DB
 		return result;
 	}
 	
+	//method to turn a resultset to a assignment object
 	public Assignment resultToAssignment(ResultSet result)
 	{
 		Assignment assignment = new Assignment();
@@ -72,6 +77,7 @@ public class DB
 		return assignment;
 	}
 	
+	//method to get a average grad with a specific student id and assignment type
 	public Student getAverage(String student_idStr, String assignment_type)
 	{
 		ArrayList<Assignment> assignments= new ArrayList<Assignment>();
@@ -128,6 +134,7 @@ public class DB
 		return student;
 	}
 	
+	//method to get all assignments from the database
 	public ArrayList<Assignment> getAllAssignments()
 	{
 		ArrayList<Assignment> assignments= new ArrayList<Assignment>();
@@ -154,6 +161,7 @@ public class DB
 		return assignments;
 	}
 	
+	//method to get all assignments from the database with a specific student id and an assignment type
 	public ArrayList<Assignment> getAssignments(String student_idStr, String assignment_type)
 	{
 		ArrayList<Assignment> assignments= new ArrayList<Assignment>();
@@ -215,6 +223,7 @@ public class DB
 		return assignments;
 	}
 	
+	//method to insert a assignment to the database
 	public void insertAssignment(Assignment assignment)
 	{
 		String insertStatement = "INSERT INTO ASSIGNMENT (STUDENT_ID,ASSIGNMENT_NAME,ASSIGNMENT_TYPE,ASSIGNMENT_DATE,GRADE) VALUES (?,?,?,?,?)";
@@ -238,6 +247,7 @@ public class DB
 		}
 	}
 	
+	//method to get min and max values of a specific assignment type
 	public double[] getMinMax(String assignmentType)
 	{
 		double[] minmax = new double[2];
@@ -288,52 +298,4 @@ public class DB
 		return max;
 	}
 	
-//	public ArrayList<Grade> getGrade()
-//	{
-//		ArrayList<Grade> grades = new ArrayList<Grade>();
-//		String sql = "SELECT * FROM GRADE ORDER BY ASSIGNMENT";
-//		
-//		ResultSet result = selectSQL(sql);
-//		try
-//		{
-//			while(result.next())
-//			{
-//				
-//				Grade grade = new Grade();
-//				grade.setAssignment(result.getString("ASSIGNMENT"));
-//				grade.setGrade(result.getDouble("GRADE"));
-//				grades.add(grade);
-//			}
-//		} catch (SQLException e)
-//		{
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		return grades;
-//	}
-//	
-//	public double getAverage()
-//	{
-//		double average = 0;
-//		String sql = "SELECT AVG(GRADE) AS AVERAGE FROM GRADE";
-//		ResultSet  result = selectSQL(sql);
-//		try
-//		{
-//			while(result.next())
-//			{
-//				average = result.getDouble("AVERAGE");
-//			}
-//		} catch (SQLException e)
-//		{
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return average;
-//	}
-
-	
-
-	
-
 }

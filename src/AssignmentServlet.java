@@ -1,5 +1,9 @@
 
-
+/*
+ * This servlet is used to accepts parameter of a assignment object, 
+ * validate all fields, 
+ * and insert the object to the database
+ */
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,7 +50,7 @@ public class AssignmentServlet extends HttpServlet {
 		String dateStr = request.getParameter("date");
 		String gradeStr = request.getParameter("grade");
 		
-		//validate inputs
+		//validate all inputs
 		boolean isValid = true;
 		boolean isValidGrade = true;
 		boolean isValidDate =true;
@@ -80,6 +84,7 @@ public class AssignmentServlet extends HttpServlet {
 			errorMessage += "Invalid student id \n";
 		}
 		
+		//if no error, continues
 		if(isValid && isValidGrade && isValidDate & isValidStudentID)
 		{
 			//format data
@@ -93,17 +98,23 @@ public class AssignmentServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 			double grade = Double.parseDouble(gradeStr);
 			int student_id = Integer.parseInt(student_idStr);
+			
+			// initialize assignment object
 			Assignment assignment = new Assignment(student_id,assignment_name,assignment_type,assignment_date,grade);
+			
+			//save assignment object to the database
 			DB db = new DB();
 			db.insertAssignment(assignment);
 			
+			//generate result as a add more button and forward to Result.jsp to display the result
 			String result = "<p>Assignment Created!</p><a class = \"button btn-primary\" href = \"/StrongHeimGradebook/AssignmentForm.jsp\" > Add More </a>";
 			request.setAttribute("result", result);
 			getServletContext().getRequestDispatcher("/Result.jsp").forward(request, response);
 		}
+		
+		//if there's a error, sendError to client
 		else
 		{
 			response.sendError(400, errorMessage);

@@ -1,5 +1,8 @@
 
-
+/*
+ * THis servlet is used to loop up average grade for a specific student 
+ * and/or a specific assignment type
+ */
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -35,11 +38,13 @@ public class AverageLookupServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//accepts parameters from client
 		String student_idStr = request.getParameter("student_id");
 		String assignment_type = request.getParameter("assignment_type");
 		
 		
-
+		//validate inputs, if not valid, send error to client
 		if(    (student_idStr == null || student_idStr.trim().equals(""))
 			||((student_idStr == null || student_idStr.trim().equals("")) && (assignment_type == null || assignment_type.trim().equals(""))))
 		{
@@ -47,6 +52,7 @@ public class AverageLookupServlet extends HttpServlet {
 			response.sendError(400, "invalid inputs");
 		}
 		
+		//if valid, look up data
 		else
 		{
 			DB db = new DB();
@@ -70,7 +76,6 @@ public class AverageLookupServlet extends HttpServlet {
 			request.setAttribute("result", result);
 			
 			getServletContext().getRequestDispatcher("/Result.jsp").forward(request, response);
-			
 		}
 	}
 

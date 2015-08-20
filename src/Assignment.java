@@ -7,6 +7,8 @@ public class Assignment
 	private String assignment_name,assignment_type;
 	private Date assignment_date;
 	private double grade;
+	
+	//get table header for the result
 	public static String getTableHeader()
 	{
 		String header = "<thead>";
@@ -32,6 +34,8 @@ public class Assignment
 		
 		return header;
 	}
+	
+	//setter and getters
 	public int getStudent_id()
 	{
 		return student_id;
