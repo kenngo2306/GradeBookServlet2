@@ -12,6 +12,23 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/additional-methods.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/additional-methods.min.js"></script>
+<script>
+	/*$.validator.setDefaults({
+		submitHandler: function(){
+			alert("submitted!");
+		}
+	});*/
+	
+	$().ready(function(){
+		//validate comment form when it is submitted
+		$("#assignmentForm").validate();	
+	});
+</script>
 <title>Add Assignment</title>
 </head>
 <body>
@@ -31,10 +48,10 @@
   </div>
 </nav>
 <div class="col-md-3 col-md-offset-4">
-	<form role="form" action="Assignment" method="POST">
+	<form role="form" action="Assignment" id="assignmentForm" method="POST">
 		<div class="form-group">
 			<label for="student_id">Student ID:</label>
-			<input class="form-control" id="student_id" name="student_id">
+			<input class="form-control" id="student_id" name="student_id" minlength="2" type="text">
 		</div>
 		
 		<div class="form-group">
